@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RMind
 
-## Available Scripts
+<a href="https://github.com/Mongkii/RMind"><img src="https://img.shields.io/github/license/Mongkii/Rmind.svg" alt="GPL 3.0"/></a><a href="https://github.com/Mongkii/RMind"><img src="https://img.shields.io/github/languages/code-size/Mongkii/RMind.svg" alt="Code Size" /></a>
 
-In the project directory, you can run:
+基于 React Hooks 与 flex 布局，实现了大部分功能的思维导图。
 
-### `npm start`
+An almost-full-function Mindmap web app developed with only React Hooks and flex layout.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Demo 地址：https://mongkii.github.io/RMind-Demo/
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## 支持
+- 节点的增删改等基本功能
+- 拖拽操作
+- 撤销/重做
+- 导入及导出 .km（百度脑图） .md（Makrdown） .txt 格式的思维导图
+- 将导图保存为图片
+- 切换主题
 
-### `npm test`
+## 操作方式
+### 鼠标操作
+  - 单击选中节点
+  - 双击编辑节点文字
+  - 拖拽移动节点
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 键盘操作
 
-### `npm run build`
+|功能|按键|
+|----|----|
+|切换所选节点|`↑`/`↓`/`←`/`→`|
+|添加子节点|`Tab`|
+|添加兄弟节点|`Enter`|
+|删除节点|`Backspace`/`Delete`|
+|修改节点文字|`F2`|
+|切换显示子节点|`Space`|
+|撤销|`Cmd/Ctrl`+`Z`|
+|重做|`Cmd/Ctrl`+`Shift`+`Z`|
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+编辑文字状态下：
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+|功能|按键|
+|----|----|
+|取消|`Esc`|
+|确认|`Enter`|
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
