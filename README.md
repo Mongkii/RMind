@@ -9,7 +9,7 @@ An almost-full-function Mindmap web app developed with only React Hooks and flex
 
 Demo 地址：https://mongkii.github.io/RMind-Demo/
 
-[示例用导图文件](./docs/RMind Sample.rmf)
+<a href="./docs/sample.rmf" download="sample.rmf">示例用导图文件</a>
 
 ## 特点
 - 完全使用 React Hooks 开发，所有功能均由箭头函数实现
