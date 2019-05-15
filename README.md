@@ -70,3 +70,7 @@ Demo 地址：https://mongkii.github.io/RMind-Demo/
 - 大纲等其他导图样式
 - Minimap + 导图缩放
 - 优化 Hooks 使用，避免不必要的渲染
+
+## 致谢
+
+项目中使用的 iconfont 来自 [Zwicon](https://zwicon.com)，一款精美且免费的图标库。
