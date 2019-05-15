@@ -33,7 +33,7 @@ export const drawLineCanvas = (ctx, theme, mindmap, map) => {
     ctx.closePath();
 };
 
-export const drawDragCanvas = (ctx, theme, child_id, parent_offset, children_offset_left, children_offset_right, children_offset_top, children_offset_bottom, child_left_of_parent) => {
+export const drawDragCanvas = (ctx, theme, child_id, parent_offset, child_offset, child_left_of_parent) => {
     const virtual_rect_width = 50,
         virtual_rect_height = 20;
     ctx.beginPath();
@@ -43,14 +43,14 @@ export const drawDragCanvas = (ctx, theme, child_id, parent_offset, children_off
     let parent_x,
         parent_y = (parent_offset.top + parent_offset.bottom) / 2,
         child_x,
-        child_y = (children_offset_top + children_offset_bottom) / 2;
+        child_y = (child_offset.top + child_offset.bottom) / 2;
     if (child_left_of_parent) {
         parent_x = parent_offset.left;
-        child_x = children_offset_right;
+        child_x = child_offset.right;
         ctx.strokeRect(child_x - virtual_rect_width, child_y - virtual_rect_height / 2, virtual_rect_width, virtual_rect_height);
     } else {
         parent_x = parent_offset.right;
-        child_x = children_offset_left;
+        child_x = child_offset.left;
         ctx.strokeRect(child_x, child_y - virtual_rect_height / 2, virtual_rect_width, virtual_rect_height);
     }
     drawBezier(ctx, parent_x, parent_y, child_x, child_y);
