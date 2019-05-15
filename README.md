@@ -22,14 +22,18 @@ Demo 地址：https://mongkii.github.io/RMind-Demo/
 - 切换主题
 
 ## 演示
+
+- 拖拽操作
+
 ![](./docs/img/drag.gif)
-拖拽操作
+
+- 键盘操作
 
 ![](./docs/img/keydown.gif)
-键盘操作
+
+- 切换主题
 
 ![](./docs/img/theme.gif)
-切换主题
 
 ## 操作方式
 ### 鼠标操作
