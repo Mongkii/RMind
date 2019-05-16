@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/RMind-Demo/static/css/main.b3afdc20.chunk.css",
+    "main.js": "/RMind-Demo/static/js/main.15db60e5.chunk.js",
+    "runtime~main.js": "/RMind-Demo/static/js/runtime~main.96029908.js",
+    "static/css/2.24bf1742.chunk.css": "/RMind-Demo/static/css/2.24bf1742.chunk.css",
+    "static/js/2.f29f6a22.chunk.js": "/RMind-Demo/static/js/2.f29f6a22.chunk.js",
+    "static/js/3.482d5276.chunk.js": "/RMind-Demo/static/js/3.482d5276.chunk.js",
+    "static/js/4.d151e797.chunk.js": "/RMind-Demo/static/js/4.d151e797.chunk.js",
+    "index.html": "/RMind-Demo/index.html",
+    "precache-manifest.71e15855873ef33dbf3caa3bb5829c00.js": "/RMind-Demo/precache-manifest.71e15855873ef33dbf3caa3bb5829c00.js",
+    "service-worker.js": "/RMind-Demo/service-worker.js",
+    "static/media/zwicon.css": "/RMind-Demo/static/media/zwicon.d7e439ce.ttf"
+  }
+}
