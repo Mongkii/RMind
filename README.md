@@ -3,13 +3,15 @@
 <a href="https://github.com/Mongkii/RMind"><img src="https://img.shields.io/github/license/Mongkii/Rmind.svg" alt="GPL 3.0"/></a>
 <a href="https://github.com/Mongkii/RMind"><img src="https://img.shields.io/github/languages/code-size/Mongkii/RMind.svg" alt="Code Size" /></a>
 
-基于 React Hooks 与 flex 布局，实现了大部分功能的思维导图。
+RMind = React + Mindmap
 
-An almost-full-function Mindmap web app developed with only React Hooks and flex layout.
+> 基于 React Hooks 与 flex 布局，实现了大部分功能的思维导图。
+
+> An almost-full-function Mindmap web app developed with only React Hooks and flex layout.
 
 在线演示：[RMind Demo](https://mongkii.github.io/RMind/)
 
-<a href="./docs/sample.rmf">示例用导图文件</a>
+📄 <a href="./docs/sample.rmf">示例用导图文件</a>
 
 ## 特点
 - 完全使用 React Hooks 开发，所有功能均由箭头函数实现
