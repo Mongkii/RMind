@@ -58,6 +58,16 @@ export const changeText = (node_id, text) => ({
     }
 });
 
+export const changeInfo = (node_id, info) => ({
+    type: actionTypes.CHANGE_TEXT,
+    data: {
+        node_id,
+        node: {
+            info
+        }
+    }
+});
+
 export const deleteNode = (node_id, parent_id) => ({
     type: actionTypes.DELETE_NODE,
     data: {

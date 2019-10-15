@@ -1,11 +1,15 @@
 import React, {useRef} from 'react';
 import {css} from 'emotion';
 import Mindmap from '../Mindmap';
+import EditPanel from '../EditPanel';
 
 const Main = () => {
     const self = useRef();
 
-    return (<main ref={self} className={wrapper}><Mindmap container_ref={self} /></main>);
+    return (<main ref={self} className={wrapper}>
+        <Mindmap container_ref={self} />
+        <EditPanel/>
+    </main>);
 };
 
 export default Main;

@@ -7,10 +7,11 @@ import * as refer from '../../statics/refer';
 import {handlePropagation} from '../../methods/assistFunctions';
 import Toolbar from './subComponents/Toolbar';
 import InputDiv from './subComponents/InputDiv';
+import MdPreview from '../mdPreview';
 
 const Node = ({layer, node, parent, node_refs, on_left}) => {
     const self = useRef();
-    const {state: nodeStatus, dispatch: nDispatch} = useContext(context).nodeStatus;
+    const {nodeStatus: {state: nodeStatus, dispatch: nDispatch}, editPanel: {state:epState}} = useContext(context);
     const mindmapHook = useMindmap();
 
     const handleSelectNode = () => {
@@ -53,10 +54,10 @@ const Node = ({layer, node, parent, node_refs, on_left}) => {
         {nodeStatus.cur_edit === node.id &&
         <InputDiv node_id={node.id}>{node.text}</InputDiv>}
         <div className={drop_area} data-tag={refer.DROP_AREA} onClick={handleSelectNode} onDoubleClick={handleEditNode} />
-        <p>{node.text}</p>
+        <p>{node.text} {node.info && <MdPreview mdtext={node.info}/>}</p>
         {(layer > 0 && node.children.length > 0) &&
         <button className={cx(toggle_button, (on_left ? button_left : button_right))} onClick={handleToggleChildren}>{node.showChildren ? '-' : '+'}</button>}
-        {(nodeStatus.cur_select === node.id && nodeStatus.select_by_click) &&
+        {(nodeStatus.cur_select === node.id && nodeStatus.select_by_click) && !epState.isShow &&
         <Toolbar layer={layer} node={node} parent={parent} />}
     </div>);
 };
