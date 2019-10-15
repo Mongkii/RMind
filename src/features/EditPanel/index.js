@@ -39,7 +39,7 @@ const EditPanel = () => {
             <MdEditor 
                 className={mdEditor} 
                 propText={info}
-                onBlur={(value)=>mindmapHook.editNodeInfo(id,value)}
+                onBlur={(value)=> id && mindmapHook.editNodeInfo(id,value)}
             />                       
             {/* <Button type="primary" onClick={()=>mindmapHook.editNodeInfo(id,inputVal)}>保存</Button>
             <Button type="primary" onClick={()=>editPanleHook.toggelPanelShow(false)}>关闭</Button> */}            
