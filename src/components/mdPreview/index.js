@@ -20,7 +20,7 @@ marked.setOptions({
 });
 
 function MdPreview(props) {
-    const { mdtext } = props;
+    const { mdtext='' } = props;
 
     //   const [example, setExample] = useState('initialValue');
     //   useEffect(() => {
