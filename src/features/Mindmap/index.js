@@ -12,6 +12,7 @@ import DragCanvas from '../../components/DragCanvas';
 import LineCanvas from '../../components/LineCanvas';
 import useZoom from '../../customHooks/useZoom';
 import useMove from '../../customHooks/useMove';
+import {debounce} from '../../methods/assistFunctions';
 
 const node_refs = new Set();
 
@@ -42,15 +43,15 @@ const Mindmap = ({container_ref}) => {
         }
     }, []);
 
-    useEffect(() => {
+    useEffect(() => {        
         const handleMouseWheel=getMouseWheelEvent(zoomHook,gState.zoom)
         const handleMapMove=getMouseWheelEvent(moveHook,gState.zoom)
         document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('wheel', handleMouseWheel);
-        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', handleMapMove);
+        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', debounce(handleMapMove,5));
         document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousedown', handleMapMove)
         return () => {
             document.querySelector(`#${refer.MINDMAP_MAIN}`).removeEventListener('wheel', handleMouseWheel);
-            document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', handleMapMove);
+            document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', debounce(handleMapMove,5));
             document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousedown', handleMapMove);
         }
     }, []);
@@ -61,7 +62,12 @@ const Mindmap = ({container_ref}) => {
     }, [mindmap_json]);
 
     return (
-        <div className={wrapper} ref={self} style={{zoom:gState.zoom,left:gState.vertical+'vh',top:gState.horizontal+'vw'}} id={refer.MINDMAP_ID} >
+        <div 
+            className={wrapper} 
+            ref={self} 
+            style={{zoom:gState.zoom,left:gState.vertical+'vh',top:gState.horizontal+'vw'}} 
+            id={refer.MINDMAP_ID} 
+            draggable={false}>
             <RootNode key={root_node.id} layer={0} node={root_node} node_refs={node_refs} />
             <DragCanvas parent_ref={self} container_ref={container_ref} mindmap={root_node} />
             <LineCanvas parent_ref={self} mindmap={root_node} node_refs={node_refs} />
