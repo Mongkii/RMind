@@ -15,17 +15,17 @@ export const setTheme = theme_index => ({
 });
 
 
-export const zoomIn = zoomRate => ({
+export const zoomIn = (x,y) => ({
     type: actionTypes.ZOOM_IN,
     data: {
-        zoomRate
+        x,y
     }
 });
 
-export const zoomOut = zoomRate => ({
+export const zoomOut = (x,y) => ({
     type: actionTypes.ZOOM_OUT,
     data: {
-        zoomRate
+        x,y
     }
 });
 
@@ -35,3 +35,25 @@ export const zoomReset = zoomRate => ({
         zoomRate
     }
 });
+
+export const moveReset = () => ({
+    type: actionTypes.MOVE_RESET,
+    data: {
+    }
+});
+
+export const moveXY = (x,y) => ({
+    type: actionTypes.MOVE_XY,
+    data: {
+        x,y
+    }
+});
+
+export const moveXYWhenZoom = (x,y) => ({
+    type: actionTypes.MOVE_XY,
+    data: {
+        x,y
+    }
+});
+
+

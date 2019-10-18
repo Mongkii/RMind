@@ -41,11 +41,12 @@ const Node = ({layer, node, parent, node_refs, on_left}) => {
             nDispatch(getNodeInfo(node, parent, on_left));
         }
     }, [nodeStatus.cur_select, node]);
-
+    
     // 为避免事件冒泡导致干扰，点击事件放在了 dropArea div，最外层 Node div 用于阻止冒泡
     return (<div
         className={cx(common_style, specific_style[layer < 3 ? layer : 3], {[seleted_style]: nodeStatus.cur_select === node.id})}
         draggable={layer > 0 && nodeStatus.cur_edit !== node.id}
+        onMouseDown={(e)=>e.stopPropagation()}
         data-tag={on_left ? refer.LEFT_NODE : refer.RIGHT_NODE}
         data-parent={parent.id}
         data-show-children={node.showChildren}

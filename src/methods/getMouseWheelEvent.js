@@ -1,5 +1,10 @@
-export default (zoomHook) => {
-    const { zoomIn, zoomOut } = zoomHook;
+const mousemoveInfo = {
+    startX: 0,
+    startY: 0,
+}
+
+export default (propHook, zoomRate) => {
+    const { zoomIn, zoomOut, moveXY } = propHook;
     const getWheelDelta = (e) => {
         if (e.wheelDelta) {
             return e.wheelDelta
@@ -11,25 +16,35 @@ export default (zoomHook) => {
     const handleWhellEventWithkey = e => {
 
         if (e.ctrlKey === true && e.wheelDelta) {
-            console.log('阻止默认鼠标滚轮，缩放mindmap', getWheelDelta(e))
             e.preventDefault()
             e.stopPropagation()
-            getWheelDelta(e) > 0 ? zoomIn() : zoomOut()
+            // console.log('缩放坐标',e.clientX,e.clientY)
+            getWheelDelta(e) > 0 ? zoomIn(e.clientX,e.clientY) : zoomOut(e.clientX,e.clientY)
+            return;
         }
-        if (e.altKey === true) {
-            console.log('拖拽事件', getWheelDelta(e))
-            e.preventDefault()
+
+        if (e.buttons === 1 && e.type === 'mousedown') {
+            mousemoveInfo.startX = e.clientX
+            mousemoveInfo.startY = e.clientY
+            return
+        }
+
+        if (e.buttons === 1) {
             e.stopPropagation()
+            const { startX, startY } = mousemoveInfo;
+            const movedX = (e.clientX - startX);
+            const movedY = (e.clientY - startY);
+            moveXY(movedX / 10, movedY / 10)
+            mousemoveInfo.startX = e.clientX
+            mousemoveInfo.startY = e.clientY
         }
-
-
     };
 
     return event => {
         try {
             handleWhellEventWithkey(event); // 据说在 try 代码块中写大量语句会影响性能，因此包装为函数
         } catch (e) {
-            alert('当前的节点信息存在问题，请重新选择节点');
+            alert('移动或缩放功能异常',e);
         }
     };
 };

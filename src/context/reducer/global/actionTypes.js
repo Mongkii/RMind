@@ -6,7 +6,6 @@ export const ZOOM_IN = 'global/zoomIn';
 export const ZOOM_OUT = 'global/zoomOut';
 export const ZOOM_RESET= 'global/zoomReset';
 
-export const MOVE_UP= 'global/moovUp';
-export const MOVE_DOWN= 'global/moovDown';
-export const MOVE_LEFT= 'global/moovLeft';
-export const MOVE_RIGHT= 'global/moovRIght';
+export const MOVE_XY= 'global/moveXY';
+export const MOVE_RESET= 'global/moveReset';
+export const MOVE_XY_WHEN_ZOOM= 'global/moveXYWhenZoom';

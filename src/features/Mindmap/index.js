@@ -11,6 +11,7 @@ import RootNode from '../../components/RootNode';
 import DragCanvas from '../../components/DragCanvas';
 import LineCanvas from '../../components/LineCanvas';
 import useZoom from '../../customHooks/useZoom';
+import useMove from '../../customHooks/useMove';
 
 const node_refs = new Set();
 
@@ -21,6 +22,7 @@ const Mindmap = ({container_ref}) => {
     const historyHook = useHistory();
     const mindmapHook = useMindmap();
     const zoomHook = useZoom();
+    const moveHook=useMove()
     const {clearNodeStatus} = mindmapHook;
 
     const mindmap_json = useMemo(() => JSON.stringify(root_node), [root_node]); // 如果 root_node 没有 JSON.stringify，使用按键操作时有时会连续两次触发 useEffect，目前没查出来为什么。利用 useMemo 避免重复触发
@@ -41,12 +43,15 @@ const Mindmap = ({container_ref}) => {
     }, []);
 
     useEffect(() => {
-        const handleMouseWheel=getMouseWheelEvent(zoomHook)
-        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousewheel', handleMouseWheel);
-        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('DOMMouseScroll', handleMouseWheel);
+        const handleMouseWheel=getMouseWheelEvent(zoomHook,gState.zoom)
+        const handleMapMove=getMouseWheelEvent(moveHook,gState.zoom)
+        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('wheel', handleMouseWheel);
+        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', handleMapMove);
+        document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousedown', handleMapMove)
         return () => {
-            document.querySelector(`#${refer.MINDMAP_MAIN}`).removeEventListener('mousewheel', handleMouseWheel);
-            document.querySelector(`#${refer.MINDMAP_MAIN}`).removeEventListener('DOMMouseScroll', handleMouseWheel);
+            document.querySelector(`#${refer.MINDMAP_MAIN}`).removeEventListener('wheel', handleMouseWheel);
+            document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousemove', handleMapMove);
+            document.querySelector(`#${refer.MINDMAP_MAIN}`).addEventListener('mousedown', handleMapMove);
         }
     }, []);
 
@@ -56,7 +61,7 @@ const Mindmap = ({container_ref}) => {
     }, [mindmap_json]);
 
     return (
-        <div className={wrapper} ref={self} style={{zoom:gState.zoom}} id={refer.MINDMAP_ID}>
+        <div className={wrapper} ref={self} style={{zoom:gState.zoom,left:gState.vertical+'vh',top:gState.horizontal+'vw'}} id={refer.MINDMAP_ID} >
             <RootNode key={root_node.id} layer={0} node={root_node} node_refs={node_refs} />
             <DragCanvas parent_ref={self} container_ref={container_ref} mindmap={root_node} />
             <LineCanvas parent_ref={self} mindmap={root_node} node_refs={node_refs} />

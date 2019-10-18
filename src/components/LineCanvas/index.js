@@ -12,9 +12,7 @@ const LineCanvas = ({parent_ref, mindmap, node_refs}) => {
     const {global:{state:gState}}=useContext(context);
 
     const handleWindowResize = (e) => {
-        e.preventDefault()
-        setFlag(Date.now());
-        console.log('resize',e)
+        setFlag(Date.now());        
     };
 
     useEffect(() => {

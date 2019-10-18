@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import * as refer from '../../../statics/refer';
 import { deepCopy } from '../../../methods/assistFunctions';
+import { debug } from 'util';
 
 export const defaultValue_global = {
     title: localStorage.getItem('title') || refer.DEFAULT_TITLE,
@@ -13,8 +14,20 @@ export const defaultValue_global = {
         { main: "#b347d2", light: "#e4c0ef", dark: "#a623c9", ex: "#9621c3", assist: "#009000" },
         { main: "#555555", light: "#e9e9e9", dark: "#434343", ex: "#262626", assist: "#860314" }
     ],
-    zoom: 1
+    zoom: 1,
+    vertical:0,
+    horizontal:0,
 };
+
+const ZOOM_STEP=0.1;
+const MOVE_STEP=0.1;
+
+const preventMinValue=(obj,key,min)=>{
+    
+    if(obj[key]<=min){
+        obj[key]=min
+    }
+}
 
 export default (global, action) => {
     switch (action.type) {
@@ -23,20 +36,36 @@ export default (global, action) => {
             return Object.assign(deepCopy(global), action.data);
         case actionTypes.ZOOM_IN: {
             const newGlobal = deepCopy(global)
-            newGlobal.zoom += 0.1;
+            newGlobal.zoom += ZOOM_STEP;
             return newGlobal;
         }
         case actionTypes.ZOOM_OUT: {
             const newGlobal = deepCopy(global)
-            newGlobal.zoom -= 0.1;
-            if(newGlobal.zoom<=0.3){
-                newGlobal.zoom=0.3
-            }
+            newGlobal.zoom -= ZOOM_STEP;
+            preventMinValue(newGlobal,'zoom', 0.3)
             return newGlobal;
         }
         case actionTypes.ZOOM_RESET: {
             const newGlobal = deepCopy(global)
             newGlobal.zoom = 1;
+            return newGlobal;
+        }        
+        case actionTypes.MOVE_XY: {
+            const newGlobal = deepCopy(global)
+            newGlobal.vertical+=action.data.x/newGlobal.zoom;
+            newGlobal.horizontal+=action.data.y/newGlobal.zoom;
+            return newGlobal;
+        }        
+        case actionTypes.MOVE_RESET: {
+            const newGlobal = deepCopy(global)
+            newGlobal.vertical=0;
+            newGlobal.horizontal=0;
+            return newGlobal;
+        }
+        case actionTypes.MOVE_XY_WHEN_ZOOM:{
+            const newGlobal = deepCopy(global)
+            newGlobal.vertical=0;
+            newGlobal.horizontal=0;
             return newGlobal;
         }
         default:

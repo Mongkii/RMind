@@ -4,6 +4,7 @@ import { context } from '../../context';
 import useMindmap from '../../customHooks/useMindmap';
 import useHistory from '../../customHooks/useHistory';
 import useZoom from '../../customHooks/useZoom';
+import useMove from '../../customHooks/useMove';
 import * as refer from '../../statics/refer';
 import * as popupType from '../../components/Popup/common/popupType';
 import { handlePropagation, downloadFile } from '../../methods/assistFunctions'; // 防止 Mindmap 中的选中状态由于冒泡被清除
@@ -16,6 +17,7 @@ const Nav = () => {
     const { mindmap: { state: mindmap }, history: { state: history }, global: { state: { title } } } = useContext(context);
     const { expandAll } = useMindmap();
     const { zoomIn, zoomOut, zoomReset } = useZoom();
+    const { moveXY, moveReset } = useMove()
     const { undoHistory, redoHistory } = useHistory();
 
     const handleClosePopup = () => {
@@ -69,6 +71,26 @@ const Nav = () => {
         }
     }
 
+    const handleMove = (move) => {
+        console.log('移动', move ? move : '还原')
+        switch (move) {
+            case 'up':
+                moveXY(0,-5)
+                break;
+            case 'down':
+                moveXY(0,5)
+                break;
+            case 'left':
+                moveXY(-5,0)
+                break;
+            case 'right':
+                moveXY(5,0)
+                break;
+            default:
+                moveReset()
+        }
+    }
+
     return (<nav className={wrapper}>
         <section className={section} onClick={handlePropagation}>
             <ToolButton icon={'add-item-alt'} onClick={handleNewFile}>新建</ToolButton>
@@ -84,10 +106,11 @@ const Nav = () => {
             <MindmapTitle />
         </section>
         <section className={section} onClick={handlePropagation}>
-            <ToolButton icon={'arrow-left'} onClick={() => handleZoom()}>左</ToolButton>
-            <ToolButton icon={'arrow-up'} onClick={() => handleZoom('in')}>上</ToolButton>
-            <ToolButton icon={'arrow-down'} onClick={() => handleZoom('out')}>下</ToolButton>            
-            <ToolButton icon={'arrow-right'} onClick={() => handleZoom()}>右</ToolButton>
+            <ToolButton icon={'rotate-left'} onClick={() => handleMove()}>还原</ToolButton>
+            <ToolButton icon={'arrow-left'} onClick={() => handleMove('left')}>左</ToolButton>
+            <ToolButton icon={'arrow-up'} onClick={() => handleMove('up')}>上</ToolButton>
+            <ToolButton icon={'arrow-down'} onClick={() => handleMove('down')}>下</ToolButton>
+            <ToolButton icon={'arrow-right'} onClick={() => handleMove('right')}>右</ToolButton>
             <ToolButton icon={'undo'} disabled={history.undo.length === 0} onClick={handleUndo}>撤销</ToolButton>
             <ToolButton icon={'redo'} disabled={history.redo.length === 0} onClick={handleRedo}>重做</ToolButton>
             <ToolButton icon={'scale'} onClick={handleExpand}>展开所有节点</ToolButton>
