@@ -1,14 +1,15 @@
-import React, {useRef} from 'react';
-import {css} from 'emotion';
+import React, { useRef } from 'react';
+import { css } from 'emotion';
 import Mindmap from '../Mindmap';
 import EditPanel from '../EditPanel';
+import * as refer from '../../statics/refer';
 
 const Main = () => {
     const self = useRef();
 
-    return (<main ref={self} className={wrapper}>
+    return (<main ref={self} className={wrapper} id={refer.MINDMAP_MAIN}>
         <Mindmap container_ref={self} />
-        <EditPanel/>
+        <EditPanel />
     </main>);
 };
 

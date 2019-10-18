@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import {css} from 'emotion';
 import useTheme from '../../customHooks/useTheme';
+import {context} from '../../context'
 import {drawLineCanvas} from '../../methods/drawCanvas';
 
 const LineCanvas = ({parent_ref, mindmap, node_refs}) => {
@@ -8,9 +9,12 @@ const LineCanvas = ({parent_ref, mindmap, node_refs}) => {
     const [flag, setFlag] = useState(0);
 
     const {theme} = useTheme();
+    const {global:{state:gState}}=useContext(context);
 
-    const handleWindowResize = () => {
+    const handleWindowResize = (e) => {
+        e.preventDefault()
         setFlag(Date.now());
+        console.log('resize',e)
     };
 
     useEffect(() => {
@@ -27,7 +31,7 @@ const LineCanvas = ({parent_ref, mindmap, node_refs}) => {
         const map = new Map(Array.from(node_refs).map(ref => [ref.current.id, [(ref.current.offsetLeft), (ref.current.offsetLeft + ref.current.offsetWidth), (ref.current.offsetTop + 0.5 * ref.current.offsetHeight), ref.current.dataset.tag]]));
         const ctx = dom.getContext('2d');
         drawLineCanvas(ctx, theme, mindmap, map);
-    }, [mindmap, theme, flag]);
+    }, [mindmap, theme, flag,gState.zoom]);
 
     return (<canvas ref={self} className={wrapper} />);
 };

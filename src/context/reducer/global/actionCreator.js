@@ -13,3 +13,25 @@ export const setTheme = theme_index => ({
         theme_index
     }
 });
+
+
+export const zoomIn = zoomRate => ({
+    type: actionTypes.ZOOM_IN,
+    data: {
+        zoomRate
+    }
+});
+
+export const zoomOut = zoomRate => ({
+    type: actionTypes.ZOOM_OUT,
+    data: {
+        zoomRate
+    }
+});
+
+export const zoomReset = zoomRate => ({
+    type: actionTypes.ZOOM_RESET,
+    data: {
+        zoomRate
+    }
+});

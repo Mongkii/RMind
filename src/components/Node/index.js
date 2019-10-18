@@ -14,6 +14,7 @@ const Node = ({layer, node, parent, node_refs, on_left}) => {
     const {nodeStatus: {state: nodeStatus, dispatch: nDispatch}, editPanel: {state:epState}} = useContext(context);
     const mindmapHook = useMindmap();
 
+
     const handleSelectNode = () => {
         mindmapHook.selectNode(node.id, true);
     };
