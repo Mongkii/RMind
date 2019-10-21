@@ -3,7 +3,7 @@ const mousemoveInfo = {
     startY: 0,
 }
 
-export default (propHook, zoomRate) => {
+export default (propHook, zoomRate,normalizeXY) => {
     const { zoomIn, zoomOut, moveXY } = propHook;
     const getWheelDelta = (e) => {
         if (e.wheelDelta) {
@@ -29,12 +29,13 @@ export default (propHook, zoomRate) => {
             return
         }
 
-        if (e.buttons === 1) {
+        if (e.altKey && e.buttons === 1) {
             e.stopPropagation()
+            console.log('mousedownDragTop',e)
             const { startX, startY } = mousemoveInfo;
             const movedX = (e.clientX - startX);
             const movedY = (e.clientY - startY);
-            moveXY(movedX / 10, movedY / 10)
+            moveXY(movedX / 10 / normalizeXY, movedY / 10)
             mousemoveInfo.startX = e.clientX
             mousemoveInfo.startY = e.clientY
         }

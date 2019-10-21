@@ -15,8 +15,8 @@ export const defaultValue_global = {
         { main: "#555555", light: "#e9e9e9", dark: "#434343", ex: "#262626", assist: "#860314" }
     ],
     zoom: 1,
-    vertical:0,
-    horizontal:0,
+    x:0,
+    y:0,
 };
 
 const ZOOM_STEP=0.1;
@@ -52,14 +52,14 @@ export default (global, action) => {
         }        
         case actionTypes.MOVE_XY: {
             const newGlobal = deepCopy(global)
-            newGlobal.vertical+=action.data.x/newGlobal.zoom;
-            newGlobal.horizontal+=action.data.y/newGlobal.zoom;
+            newGlobal.x+=action.data.x/newGlobal.zoom;
+            newGlobal.y+=action.data.y/newGlobal.zoom;
             return newGlobal;
         }        
         case actionTypes.MOVE_RESET: {
             const newGlobal = deepCopy(global)
-            newGlobal.vertical=0;
-            newGlobal.horizontal=0;
+            newGlobal.x=0;
+            newGlobal.y=0;
             return newGlobal;
         }
         case actionTypes.MOVE_XY_WHEN_ZOOM:{
