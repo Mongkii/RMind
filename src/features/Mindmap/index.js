@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useRef, useMemo,useState } from 'react';
+import React, { useEffect, useContext, useRef, useMemo, useState } from 'react';
 import { css } from 'emotion';
 import * as refer from '../../statics/refer';
 import { context } from '../../context/';
 import { setHistory } from '../../context/reducer/history/actionCreator';
 import useMindmap from '../../customHooks/useMindmap';
 import useHistory from '../../customHooks/useHistory';
-import useResize from '../../customHooks/useResize';
 import getKeydownEvent from '../../methods/getKeydownEvent';
 import getMouseWheelEvent from '../../methods/getMouseWheelEvent';
 import RootNode from '../../components/RootNode';
@@ -26,11 +25,11 @@ const Mindmap = ({ container_ref }) => {
     const zoomHook = useZoom();
     const moveHook = useMove()
     const { clearNodeStatus } = mindmapHook;
-    const [FLAG,setFLAG]=useState(0)
+    const [FLAG, setFLAG] = useState(0)
 
     const mindmap_json = useMemo(() => JSON.stringify(root_node), [root_node]); // 如果 root_node 没有 JSON.stringify，使用按键操作时有时会连续两次触发 useEffect，目前没查出来为什么。利用 useMemo 避免重复触发
 
-    const handleResize=()=>{
+    const handleResize = () => {
         setFLAG(Date.now())
     }
 
@@ -49,15 +48,14 @@ const Mindmap = ({ container_ref }) => {
         }
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         }
-    },[])
+    }, [])
 
     useEffect(() => {
-        console.log('调整修正比例')
         const normalizeXY = container_ref.current.clientWidth / container_ref.current.clientHeight
         const handleMouseWheel = getMouseWheelEvent(zoomHook, gState.zoom)
         const handleMapMove = getMouseWheelEvent(moveHook, gState.zoom, normalizeXY)

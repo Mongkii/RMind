@@ -18,7 +18,6 @@ export default (propHook, zoomRate,normalizeXY) => {
         if (e.ctrlKey === true && e.wheelDelta) {
             e.preventDefault()
             e.stopPropagation()
-            // console.log('缩放坐标',e.clientX,e.clientY)
             getWheelDelta(e) > 0 ? zoomIn(e.clientX,e.clientY) : zoomOut(e.clientX,e.clientY)
             return;
         }
@@ -31,7 +30,6 @@ export default (propHook, zoomRate,normalizeXY) => {
 
         if (e.altKey && e.buttons === 1) {
             e.stopPropagation()
-            console.log('mousedownDragTop',e)
             const { startX, startY } = mousemoveInfo;
             const movedX = (e.clientX - startX);
             const movedY = (e.clientY - startY);

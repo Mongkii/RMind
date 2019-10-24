@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {css} from 'emotion';
 import useEditPanel from '../../customHooks/useEditPanel';
 import useMindmap from '../../customHooks/useMindmap';
@@ -13,19 +13,6 @@ const EditPanel = () => {
     
     const mindmapHook=useMindmap()
     const editPanleHook=useEditPanel();
-
-    // const [inputVal,setInputVal]=useState(info)
-
-
-    // const onChange=(e)=>{
-    //     setInputVal(e.target.value);
-    // }
-
-    useEffect(()=>{
-        // setInputVal(info)
-        // console.log('当前节点信息',nState)
-    },[info])
-
     
     if(!epState.isShow){
         return null;

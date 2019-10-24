@@ -29,7 +29,6 @@ const DragCanvas = ({ parent_ref, container_ref, mindmap }) => {
     }, []);
 
     useEffect(() => {
-        // console.log('更新事件')
         const handleDrag = getDragEvents(mindmap, self.current, container_ref.current, theme, mindmapHook,zoom,{x,y});
         handleDrag.forEach(event => document.querySelector(`#${refer.MINDMAP_ID}`).addEventListener(event.type, event.listener));
         return () => {

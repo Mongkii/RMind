@@ -64,8 +64,8 @@ export default (global, action) => {
         }
         case actionTypes.MOVE_XY_WHEN_ZOOM:{
             const newGlobal = deepCopy(global)
-            newGlobal.vertical=0;
-            newGlobal.horizontal=0;
+            newGlobal.x=0;
+            newGlobal.x=0;
             return newGlobal;
         }
         default:

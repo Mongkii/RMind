@@ -48,11 +48,11 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook,zoom,drag) =
     };
 
     return [
+        
         {
             type: 'dragstart',
             listener: event => {
                 resetVariables();
-                console.log('dragstart')
                 container.addEventListener('scroll', handleContainerScroll);
                 if (event.target && (event.target.dataset.tag === refer.LEFT_NODE || event.target.dataset.tag === refer.RIGHT_NODE)) {
                     node_id = event.target.id;
@@ -60,9 +60,6 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook,zoom,drag) =
                     const parent = findNode(mindmap, parent_id);
                     parent_is_root = parent === mindmap;
                     parent_offset = getDomOffset(document.getElementById(parent_id));
-
-                    // console.log('parent Offset', parent_offset)
-
                     children[0] = parent.children.map(child => child.id);
                     let children_offset = [];
                     children_offset[0] = children[0].map(node_id => getDomOffset(document.getElementById(node_id)));
@@ -87,19 +84,9 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook,zoom,drag) =
                 const moveY=-(container_height*drag.y/100)
                 const mouse_x = (event.x + container_left)/zoom+moveX,
                     mouse_y = (event.y + container_top)/zoom+moveY;
-
-                console.log('drag',drag,container_width,container_height,'moveX moveY',moveX,moveY)
-                console.log('parent Offset', parent_offset)
-
-                // const mouse_x = event.clientX/zoom,
-                //     mouse_y = event.clientY/zoom;
-
-                // console.log('mouseX,mouseY', mouse_x, mouse_y, 'eventX eventY', event.x, event.y)
-
                 for (let i = 0; i < total; i++) {
                     if (!in_drop_area && mouse_x > children_offset_left[i] && mouse_x < children_offset_right[i]) {
                         let child_offset = { left: children_offset_left[i], right: children_offset_right[i] };
-                        console.log('child_offset', child_offset, 'mouse_x,mouse_y', mouse_x, mouse_y)
                         const child_left_of_parent = i === 1 || (!parent_is_root && (document.getElementById(node_id).dataset.tag === refer.LEFT_NODE)); // i = 1，即出现双侧拖拽时，左侧发生的拖拽 child_left_of_parent 必然为 true
                         const last_index = children_offset_vertical[i].length - 1;
                         if (mouse_y > children_offset_vertical[i][0] - 200 && mouse_y < children_offset_vertical[i][0]) { // 优化体验，实际是显示的 2 倍
