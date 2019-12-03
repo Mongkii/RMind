@@ -9,6 +9,7 @@ const drawLine = (ctx, node, map) => {
     const {id: parent_id, children} = node;
     if (children.length > 0) {
         const [parent_x_left, parent_x_right, parent_y] = map.get(parent_id);
+
         children.forEach(child => {
             const child_data = map.get(child.id);
             if (child_data) {

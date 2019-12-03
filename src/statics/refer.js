@@ -7,6 +7,7 @@ export const DROP_AREA = 'dropArea';
 export const ROOT_PARENT = {id: '', children: []};
 export const ROOT_NODE_ID = 'rmind_root_node';
 export const MINDMAP_ID = 'rmind_mindmap_wrapper';
+export const MINDMAP_MAIN = 'rmind_main'
 
 // 缺省文本
 export const NEW_NODE_TEXT = '新建节点';

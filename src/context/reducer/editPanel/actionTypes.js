@@ -1,0 +1,1 @@
+export const TOGGLE_PANEL_SHOW = 'editPanel/togglePanelShow';

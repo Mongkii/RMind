@@ -1,22 +1,22 @@
 import * as refer from '../statics/refer';
-import {findNode} from './assistFunctions';
-import {drawDragCanvas} from './drawCanvas';
+import { findNode } from './assistFunctions';
+import { drawDragCanvas } from './drawCanvas';
 
 const getDomOffset = dom => {
     const left = dom.offsetLeft,
         right = left + dom.offsetWidth,
         top = dom.offsetTop,
         bottom = top + dom.offsetHeight;
-    return {left, right, top, bottom};
+    return { left, right, top, bottom };
 };
 
-export default (mindmap, drag_canvas, container, theme, mindmapHook) => {
-    const {moveNode} = mindmapHook;
+export default (mindmap, drag_canvas, container, theme, mindmapHook,zoom,drag) => {
+    const { moveNode } = mindmapHook;
 
     let node_id, parent_id, target_id, is_sibling,
         children, children_offset_left, children_offset_right, children_offset_vertical,
         parent_offset, parent_is_root,
-        container_left, container_top,
+        container_left, container_top,container_width,container_height,
         in_drop_area;
 
     const resetVariables = () => {
@@ -35,16 +35,20 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook) => {
 
         container_left = container.scrollLeft;
         container_top = container.scrollTop - 56;
+        container_width = container.offsetWidth;
+        container_height = container.offsetHeight;
 
         in_drop_area = false;
     };
 
-    const handleContainerScroll = () => {
+    const handleContainerScroll = (e) => {
+        
         container_left = container.scrollLeft;
-        container_top = container.scrollTop - 56; // 56 是 container（Main 组件）顶部 margin 值
+        container_top = container.scrollTop - 56; // 56 是 container（Main 组件）顶部 margin 值        
     };
 
     return [
+        
         {
             type: 'dragstart',
             listener: event => {
@@ -76,14 +80,16 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook) => {
                 const ctx = drag_canvas.getContext('2d');
                 ctx.clearRect(0, 0, drag_canvas.width, drag_canvas.height);
                 const total = children.length;
-                const mouse_x = event.x + container_left,
-                    mouse_y = event.y + container_top;
+                const moveX=-(container_width*drag.x/100)
+                const moveY=-(container_height*drag.y/100)
+                const mouse_x = (event.x + container_left)/zoom+moveX,
+                    mouse_y = (event.y + container_top)/zoom+moveY;
                 for (let i = 0; i < total; i++) {
                     if (!in_drop_area && mouse_x > children_offset_left[i] && mouse_x < children_offset_right[i]) {
-                        let child_offset = {left: children_offset_left[i], right: children_offset_right[i]};
+                        let child_offset = { left: children_offset_left[i], right: children_offset_right[i] };
                         const child_left_of_parent = i === 1 || (!parent_is_root && (document.getElementById(node_id).dataset.tag === refer.LEFT_NODE)); // i = 1，即出现双侧拖拽时，左侧发生的拖拽 child_left_of_parent 必然为 true
                         const last_index = children_offset_vertical[i].length - 1;
-                        if (mouse_y > children_offset_vertical[i][0] - 100 && mouse_y < children_offset_vertical[i][0]) { // 优化体验，实际是显示的 2 倍
+                        if (mouse_y > children_offset_vertical[i][0] - 200 && mouse_y < children_offset_vertical[i][0]) { // 优化体验，实际是显示的 2 倍
                             child_offset.top = children_offset_vertical[i][0] - 50;
                             child_offset.bottom = children_offset_vertical[i][0];
                             drawDragCanvas(ctx, theme, node_id, parent_offset, child_offset, child_left_of_parent);
@@ -101,7 +107,7 @@ export default (mindmap, drag_canvas, container, theme, mindmapHook) => {
                                 return;
                             }
                         }
-                        if (mouse_y > children_offset_vertical[i][last_index] && mouse_y < children_offset_vertical[i][last_index] + 100) {
+                        if (mouse_y > children_offset_vertical[i][last_index] && mouse_y < children_offset_vertical[i][last_index] + 200) {
                             child_offset.top = children_offset_vertical[i][last_index];
                             child_offset.bottom = children_offset_vertical[i][last_index] + 50;
                             drawDragCanvas(ctx, theme, node_id, parent_offset, child_offset, child_left_of_parent);

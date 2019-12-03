@@ -5,7 +5,9 @@
   "private": true,
   "dependencies": {
     "emotion": "^10.0.9",
+    "highlight.js": "^9.15.10",
     "html2canvas": "^1.0.0-rc.1",
+    "marked": "^0.7.0",
     "md5": "^2.2.1",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
